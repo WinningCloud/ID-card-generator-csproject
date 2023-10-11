@@ -2,8 +2,9 @@ from PIL import Image, ImageDraw, ImageFont
 import pandas
 
 df = pandas.read_csv('xy.csv')
-
-font = ImageFont.truetype("OpenSans-Semibold.ttf", size=25)
+records = df.to_dict(orient='dict', index=True)
+# font = ImageFont.truetype("OpenSans-Semibold.ttf", size=25)
+font = ImageFont.truetype("arial.ttf", 15)
 
 def generate_card(data):
     template = Image.open("template.png")
@@ -16,7 +17,7 @@ def generate_card(data):
     draw.text((315, 215), data['dob'], font=font, fill='black')
     return template
 
-# for record in records:
-#     card = generate_card(record)
-#     card.save(f"cards/{record['id']}.jpg")
+for record in records:
+    card = generate_card(record)
+    card.save(f"cards/{record['id']}.jpg")
 

@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw, ImageFont
 import pandas
 
-df = pandas.read_csv('s.csv')
+df = pandas.read_csv('s.csv', header=None)
 records = df.to_dict(orient='record')
 font = ImageFont.truetype("OpenSans-Semibold.ttf", size=25)
 
