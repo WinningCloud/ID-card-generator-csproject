@@ -17,7 +17,7 @@ add_info(template, "ID: 12345", (290, 983), font, (0, 0, 0, 0))
 
 
 # Add a photo
-photo = Image.open(r"D:\ID card generator\ID-card-generator-csproject\sample\sample7\photos\1.png")
+photo = Image.open(r"D:\ID card generator\ID-card-generator-csproject\sample\sample7\photos\1.png")     
 template = template.convert("RGBA")
 photo = photo.convert("RGBA")
 new_photo = photo.resize((250,250))
