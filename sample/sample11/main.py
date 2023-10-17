@@ -3,7 +3,7 @@ import random
 from barcode import EAN13 
 from barcode.writer import ImageWriter
 
-
+#data storage
 #No. of ID cards you want to genarate
 n = int(input("Enter number of ID cards you want to genarate"))
 inst = input("Enter name of institution")
@@ -18,20 +18,20 @@ def user_inputs():
     
 k = user_inputs()
 
-fnt_name = ImageFont.truetype("Elianto-Regular.ttf", 65)
-fnt_inst = ImageFont.truetype("Elianto-Regular.ttf", 45)
+fnt_name = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 65)
+fnt_inst = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 45)
 
 
-fnt_rest = ImageFont.truetype("PTS55F.ttf",30)
+fnt_rest = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\PTS55F.ttf",30)
 
 
-img = Image.open('template.png')
+img = Image.open(r'D:\ID card generator\ID-card-generator-csproject\sample\sample11\template.png')
 draw = ImageDraw.Draw(img)
 
 
 
 
-
+# image manipulation
 # for institution
 
 draw.text(xy=(233,130),
@@ -95,7 +95,7 @@ draw.text(xy=(245,403),
 
 
 # for passport size image
-image_path = r'D:\ID card generator\ID-card-generator-csproject\sample\sample11\photos\{}.png'.format(k[4])
+image_path = r'D:\ID card generator\ID-card-generator-csproject\sample\sample11\photos\{}.jpg'.format(k[4])
 passport_image = Image.open(image_path)
 newsize = (370,370)
 passport_image_resized = passport_image.thumbnail(newsize)
