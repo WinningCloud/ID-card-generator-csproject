@@ -51,7 +51,7 @@ draw.text(xy=(747,537),
           font=fnt_name)
 
 # UID
-num = str(random.randint(10000,99999999))
+num = str(random.randint(100000000000,999999999999))
 draw.text(xy=(245,266),
           text = str(num),
           font = fnt_rest,
