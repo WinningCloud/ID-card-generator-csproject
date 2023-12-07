@@ -14,7 +14,7 @@ if d in data:
     pass
 else:
     cur.execute(q2)
-print(data)
+# print(data)
 
 q3 = "use idcards_data"
 cur.execute(q3)
@@ -22,7 +22,7 @@ cur.execute(q3)
 q4 = "show tables"
 cur.execute(q4)
 data2 = cur.fetchall()
-print(data2)
+# print(data2)
 
 q5 = "create table stud_data (roll_no int(5) primary key, name varchar(40), class int(2), gender varchar(6), dob date)"
 t = ("stud_data",)
@@ -47,9 +47,8 @@ for i in range(n) :
         dob = input("Enter Date of Birth: ")
         roll_no = random.randint(100000,999999)
 
-        q6 = "INSERT INTO stud_data VALUES (%s, %s, %s, %s, %s)"
-        values = (roll_no, name, clas, gender, dob)
-        cur.execute(q6, values)
+        q6 = "INSERT INTO stud_data VALUES (%s, %s, %s, %s, %s)(roll_no, name, clas, gender, dob)"
+        cur.execute(q6)
 print(n," students data successfully entered.")
 con.commit()
 
@@ -82,7 +81,7 @@ db = cur.fetchall()
 q11 = "select gender from stud_data"
 cur.execute(q11)
 gdr = cur.fetchall()
-print(rno, nm, cls, db, gdr)
+# print(rno, nm, cls, db, gdr)
 
 
 
