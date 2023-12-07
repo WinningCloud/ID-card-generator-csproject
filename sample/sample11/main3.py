@@ -40,7 +40,7 @@ inputs = int(input("Enter number of records to input: "))
 if inputs == 0:
      pass
 else:
-    for i in range(1,inputs):
+    for i in range(inputs):
         if i == 1:
             var = 'st'
         elif i == 2:
@@ -50,7 +50,7 @@ else:
         else:
             var = 'th'
 
-        print("Enter data for ",i,var,' record:')
+        print("Enter data for ",i+1,var,' record:')
         name = input("Enter name: ")
         Class = int(input("Enter class: "))
         gender = input("Enter gender(M/F)")
@@ -85,11 +85,64 @@ print(data)
 #Image manipulation for creating barcode
 
 from PIL import Image, ImageDraw, ImageFont
-from barcode import EAN13_GUARD
-from barcode.writer import ImageWriter
+# from barcode import EAN13_GUARD
+# from barcode import ImageWriter
 
 inst = input("Enter name of institution: ")
-fnt_name = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 65)
-fnt_inst = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 45)
-fnt_rest = ImageFont.truetype(r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\PTS55F.ttf",30)
+fnt_name = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 65)
+fnt_inst = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 45)
+fnt_rest = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\PTS55F.ttf",30)
 
+
+img = Image.open(r'D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\template.png')
+draw = ImageDraw.Draw(img)
+
+
+for i in data:
+     print(i)
+
+
+#For name
+for num in range (0,len(data)):
+    name_text = data[num][1]
+    class_text = data[num][2]
+    num_text = data[num][0]
+    gender_text = data[num][3]
+    print(name_text)
+
+
+
+
+    #For institution
+    draw.text(xy=(233,130),
+                text = inst,
+                fill=(0,0,0),
+                font = fnt_inst
+                )
+
+        
+    draw.text(xy=(747,537), 
+                text=name_text,
+                fill=(255,255,255),
+                font = fnt_name
+                )
+        
+        # UID
+    draw.text(xy=(245,266),
+            text = str(num_text),
+            fill = (0,0,128),
+            font = fnt_rest)
+
+
+        #class
+    draw.text(xy=(245,316),
+                text = str(class_text),
+                fill = (0,0,128),
+                font = fnt_rest)
+        #gender
+    draw.text(xy=(245,360),
+                text = gender_text,
+                fill = (0,0,128),
+                font = fnt_rest)
+    img.show()
+        
