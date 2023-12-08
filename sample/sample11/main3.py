@@ -94,15 +94,23 @@ from PIL import Image, ImageDraw, ImageFont
 
 font_path = os.path.join(PROJECT_ROOT, 'Elianto-Regular.ttf')
 fnt_rest_path = os.path.join(PROJECT_ROOT,'PTS55F.ttf')
-img_path = os.path.join(PROJECT_ROOT, 'template.png')
+img_path = os.path.join(PROJECT_ROOT, 'template1.png')
 
 
 # img = Image.open(img_path)
 
-
+multiple_inst = False
 inst = input("Enter name of institution: ")
+if ' ' in inst:
+     multiple_inst = True
+     inst = inst.split()
+     
+
+
+
+
 fnt_name = ImageFont.truetype(font_path, 65)
-fnt_inst = ImageFont.truetype(font_path, 45)
+fnt_inst = ImageFont.truetype(font_path, 35)
 fnt_rest = ImageFont.truetype(fnt_rest_path,30)
 
 
@@ -127,27 +135,41 @@ for student in data:
 
 
 
-
-    #For institution
-    draw.text(xy=(233,130),
-                text = inst,
-                fill=(0,0,0),
-                font = fnt_inst
-                )
+# 1st inst
+    if multiple_inst == False:
+    
+        #For institution
+        draw.text(xy=(173,72),
+                    text = inst,
+                    fill=(0,0,0),
+                    font = fnt_inst)
+#2nd inst
+    else:
+         #1
+         inst1 = inst[0]
+         draw.text(xy=(169,62),
+                    text = inst1,
+                    fill=(0,0,0),
+                    font = fnt_inst)
+         #2
+         inst2 = inst[1]
+         draw.text(xy=(169,104),
+                    text = inst2,
+                    fill=(0,0,0),
+                    font = fnt_inst)
 
     #for name
-    draw.text(xy=(747,537), 
+    draw.text(xy=(158,580), 
                 text=name_text,
-                fill=(255,255,255),
-                font = fnt_name
-                )
+                fill=(0,0,0),
+                font = fnt_name)
         
         # UID
-    draw.text(xy=(245,266),
+    draw.text(xy=(185,710),
             text = str(num_text),
             fill = (0,0,128),
             font = fnt_rest)
-
+# 2nd template
 
         #class
     draw.text(xy=(245,316),
@@ -161,9 +183,9 @@ for student in data:
                 font = fnt_rest)
     #photo
     passport_image = Image.open(psp_img_path)
-    newsize = (370,370)
+    newsize = (300,300)
     passport_image_resized = passport_image.thumbnail(newsize)
     print(passport_image.size)
-    img.paste(passport_image,(705,100))
+    img.paste(passport_image,(141,279))
     img.show()
         
