@@ -151,7 +151,7 @@ for student in data:
                     text = inst1,
                     fill=(0,0,0),
                     font = fnt_inst)
-         #2
+         #2 
          inst2 = inst[1]
          draw.text(xy=(169,104),
                     text = inst2,
