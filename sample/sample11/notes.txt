@@ -1,0 +1,7 @@
+data to input:
+name
+Class
+IdNo
+Email
+Phone
+Address
