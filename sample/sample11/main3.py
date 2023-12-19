@@ -1,5 +1,7 @@
 import random
 import mysql.connector as sqlcon
+import os
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 #===================================================================#
 
@@ -88,51 +90,86 @@ from PIL import Image, ImageDraw, ImageFont
 # from barcode import EAN13_GUARD
 # from barcode import ImageWriter
 
+
+
+font_path = os.path.join(PROJECT_ROOT, 'Elianto-Regular.ttf')
+fnt_rest_path = os.path.join(PROJECT_ROOT,'PTS55F.ttf')
+img_path = os.path.join(PROJECT_ROOT, 'template1.png')
+
+
+# img = Image.open(img_path)
+
+multiple_inst = False
 inst = input("Enter name of institution: ")
-fnt_name = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 65)
-fnt_inst = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 45)
-fnt_rest = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\PTS55F.ttf",30)
+if ' ' in inst:
+     multiple_inst = True
+     inst = inst.split()
+     
 
 
-img = Image.open(r'D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\template.png')
-draw = ImageDraw.Draw(img)
+
+
+fnt_name = ImageFont.truetype(font_path, 65)
+fnt_inst = ImageFont.truetype(font_path, 35)
+fnt_rest = ImageFont.truetype(fnt_rest_path,30)
+
+
+# img = Image.open(img_path)
+# draw = ImageDraw.Draw(img)
 
 
 for i in data:
      print(i)
 
 
-#For name
-for num in range (0,len(data)):
-    name_text = data[num][1]
-    class_text = data[num][2]
-    num_text = data[num][0]
-    gender_text = data[num][3]
+
+for student in data:
+    img = Image.open(img_path).copy()  # Create a fresh copy of the template
+    draw = ImageDraw.Draw(img)
+    name_text = student[1]
+    class_text = student[2]
+    num_text = student[0]
+    gender_text = student[3]
     print(name_text)
+    psp_img_path = os.path.join(PROJECT_ROOT, 'passport_images', name_text+'.jpg')
 
 
 
+# 1st inst
+    if multiple_inst == False:
+    
+        #For institution
+        draw.text(xy=(173,72),
+                    text = inst,
+                    fill=(0,0,0),
+                    font = fnt_inst)
+#2nd inst
+    else:
+         #1
+         inst1 = inst[0]
+         draw.text(xy=(169,62),
+                    text = inst1,
+                    fill=(0,0,0),
+                    font = fnt_inst)
+         #2 
+         inst2 = inst[1]
+         draw.text(xy=(169,104),
+                    text = inst2,
+                    fill=(0,0,0),
+                    font = fnt_inst)
 
-    #For institution
-    draw.text(xy=(233,130),
-                text = inst,
-                fill=(0,0,0),
-                font = fnt_inst
-                )
-
-        
-    draw.text(xy=(747,537), 
+    #for name
+    draw.text(xy=(158,580), 
                 text=name_text,
-                fill=(255,255,255),
-                font = fnt_name
-                )
+                fill=(0,0,0),
+                font = fnt_name)
         
         # UID
-    draw.text(xy=(245,266),
+    draw.text(xy=(185,710),
             text = str(num_text),
             fill = (0,0,128),
             font = fnt_rest)
-
+# 2nd template
 
         #class
     draw.text(xy=(245,316),
@@ -144,5 +181,11 @@ for num in range (0,len(data)):
                 text = gender_text,
                 fill = (0,0,128),
                 font = fnt_rest)
+    #photo
+    passport_image = Image.open(psp_img_path)
+    newsize = (300,300)
+    passport_image_resized = passport_image.thumbnail(newsize)
+    print(passport_image.size)
+    img.paste(passport_image,(141,279))
     img.show()
         
