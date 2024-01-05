@@ -2,6 +2,8 @@ import random
 import mysql.connector as sqlcon
 import os
 from PIL import Image, ImageDraw, ImageFont
+from barcode import Code128
+from barcode.writer import ImageWriter
 #===================================================================#
 
 con = sqlcon.connect(user = 'root', password = '6389', host = 'localhost')
@@ -85,11 +87,7 @@ data = cur.fetchall()
 print(data)
 
 #----------------------------------------------------------------------------------------------------------------#
-#Image manipulation for creating barcode
 
-
-# from barcode import EAN13_GUARD
-# from barcode import ImageWriter
 
 
 base_dir = r'D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11'
@@ -110,9 +108,39 @@ for i in data:
 
 
 
+
+def crop_circle(input_path, output_path):
+    # Open the image
+    image = Image.open(input_path)
+
+    # Create a mask in the shape of a circle
+    mask = Image.new("L", image.size, 0)
+    draw = ImageDraw.Draw(mask)
+    draw.ellipse((0, 0, image.width, image.height), fill=255)
+
+    # Apply the circular mask to the image
+    result = Image.new("RGBA", image.size)
+    result.paste(image, mask=mask)
+
+    # Save the result
+    result.save(output_path, "PNG")
+
+
+
+
+
+
+
+
+
+
+
+
+
 for num in range (0,len(data)):
     img = Image.open(img_path)
     draw = ImageDraw.Draw(img)
+    id = data[num][0]
     name_text = data[num][1]
     class_text = data[num][2]
     num_text = data[num][0]
@@ -122,13 +150,13 @@ for num in range (0,len(data)):
 
 
 
-    #For logo
-    logo = Image.open(logo_path)
-    logo_with_white_background = Image.new("RGBA", logo.size, (255, 255, 255))
-    logo_with_white_background.resize((50,50), Image.ANTIALIAS)
-    logo_with_white_background.paste(logo, (0, 0), logo)
-    logo_position = (50,50)
-    img.paste(logo_with_white_background, logo_position)
+    # #For logo
+    # logo = Image.open(logo_path)
+    # logo_with_white_background = Image.new("RGBA", logo.size, (255, 255, 255))
+    # logo_with_white_background.resize((50,50))
+    # logo_with_white_background.paste(logo, (0, 0), logo)
+    # logo_position = (50,50)
+    # img.paste(logo_with_white_background, logo_position)
 
 
     #For institution
@@ -171,5 +199,25 @@ for num in range (0,len(data)):
                 fill = (0,0,128),
                 font = fnt_rest)
     
+        #barcode
+    barcode_value = str(id)
+    bc =  Code128(barcode_value, writer=ImageWriter())
+    barcode_path = os.path.join(base_dir, 'barcodes', f'barcode_{id}.png')
+    bc.write(barcode_path)
+    
+        #photo
+    
+
+
+
+    input_image_path = os.path.join(base_dir,'photos',f"{num+1}.jpg")
+    output_image_path = os.path.join(base_dir,'cropped photos',f"{num_text}.png")
+    crop_circle(input_image_path, output_image_path)
+
+
+
     img.show()
         
+
+
+
