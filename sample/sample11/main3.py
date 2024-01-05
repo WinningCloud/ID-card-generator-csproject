@@ -133,6 +133,7 @@ for student in data:
     print(name_text)
     psp_img_path = os.path.join(PROJECT_ROOT, 'passport_images', name_text+'.jpg')
 
+#For logo
 
 
 # 1st inst

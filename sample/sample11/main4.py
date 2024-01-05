@@ -98,7 +98,7 @@ inst = input("Enter name of institution: ")
 fnt_name = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 65)
 fnt_inst = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\Elianto-Regular.ttf", 45)
 fnt_rest = ImageFont.truetype(r"D:\Farhan\Python\ID card generator\ID-card-generator-csproject\sample\sample11\PTS55F.ttf",30)
-logo_path = os.path.join(base_dir,'logos','kvlogo.png')
+logo_path = os.path.join(base_dir,'logos','kvslogo.png')
 
 
 img_path = os.path.join(base_dir, 'templates', '1.png' )
@@ -121,6 +121,14 @@ for num in range (0,len(data)):
     print(num)
 
 
+
+    #For logo
+    logo = Image.open(logo_path)
+    logo_with_white_background = Image.new("RGBA", logo.size, (255, 255, 255))
+    logo_with_white_background.resize((50,50), Image.ANTIALIAS)
+    logo_with_white_background.paste(logo, (0, 0), logo)
+    logo_position = (50,50)
+    img.paste(logo_with_white_background, logo_position)
 
 
     #For institution
