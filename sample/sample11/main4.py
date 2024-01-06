@@ -58,7 +58,7 @@ else:
         Class = int(input("Enter class: "))
         gender = input("Enter gender(M/F)")
         dob = input("Enter DOB:")
-        roll_no = random.randint(100000,999999)
+        roll_no = int(input("Enter roll number(): "))
         email = input("Enter Email ID:")
         address = input("Enter address")
         phone = int(input("Enter phone number"))
@@ -210,14 +210,39 @@ for num in range (0,len(data)):
 
 
 
-    input_image_path = os.path.join(base_dir,'photos',f"{num+1}.jpg")
-    output_image_path = os.path.join(base_dir,'cropped photos',f"{num_text}.png")
+    input_image_path = os.path.join(base_dir,'photos',f"{num_text}.jpg")
+    output_image_path = os.path.join(base_dir,'cropped photos',f"photo ({num_text}).png")
     crop_circle(input_image_path, output_image_path)
 
 
 
-    img.show()
+   
+    photo_to_be_pasted = Image.open(output_image_path)
+    photo_position = (162, 107)
+    photo_box = (
+        photo_position[0],
+        photo_position[1],
+        photo_position[0] + photo_to_be_pasted.width,
+        photo_position[1] + photo_to_be_pasted.height
+        )
         
+    # img.paste(photo_to_be_pasted, photo_box)
+
+    # img.show() 
+    save_path = os.path.join(base_dir,'cards',f'{name_text}.png') 
+    img.save(save_path)
+
+
+# Paste the cropped photo onto the ID card
+
+# Save or display the modified image
+# img.save(f'output_image_with_photo_{num}.png')
+    
+
+#         bar_path = r"D:\ID card generator\ID-card-generator-csproject\sample\sample11\barcodes\{}.png".format(k[4])
+# bar = Image.open(bar_path)
+# bar.thumbnail((360,360))
+# img.paste(bar,(54,477)) 
 
 
 
